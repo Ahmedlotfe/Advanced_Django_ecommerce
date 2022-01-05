@@ -35,9 +35,7 @@
                                         <select name="color" class="form-control" required>
                                             <option value="" disabled selected>Select</option>
                                             {% for color in color_variation %}
-                                                {% if color.variation_category == 'color' %}
                                                 <option value="{{ color.variation_value | lower }}">{{ color.variation_value | capfirst }}</option>
-                                                {% endif %}
                                             {% endfor %}
                                         </select>
                                     </div>
