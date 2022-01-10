@@ -11,7 +11,7 @@ class RegistrationForm(forms.ModelForm):
         'placeholder': 'Confirm Password',
         'class': 'form-control'
     }))
-
+ 
     class Meta:
         model = Account
         fields = ['first_name', 'last_name',
