@@ -8,8 +8,11 @@ def get_items(request):
         return {}
     else:
         try:
-            cart = Cart.objects.get(cart_id=_cart_id(request))
-            items = CartItem.objects.filter(cart=cart)
+            if request.user.is_authenticated:
+                items = CartItem.objects.filter(user=request.user)
+            else:
+                cart = Cart.objects.get(cart_id=_cart_id(request))
+                items = CartItem.objects.filter(cart=cart)
             for item in items:
                 counter += item.quantity
         except Cart.DoesNotExist:

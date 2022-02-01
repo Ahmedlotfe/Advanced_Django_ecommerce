@@ -19,6 +19,8 @@ from carts.models import Cart, CartItem
 
 
 def register(request):
+    if request.user.is_authenticated:
+        return redirect('store')
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
@@ -63,6 +65,8 @@ def register(request):
 
 
 def login(request):
+    if request.user.is_authenticated:
+        return redirect('store')
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
@@ -75,12 +79,11 @@ def login(request):
                 is_cart_item_exists = CartItem.objects.filter(
                     cart=cart).exists()
                 if is_cart_item_exists:
-                    cart_item = CartItem.objects.filter(cart=cart)
-                    print(cart_item)
+                    cart_items = CartItem.objects.filter(cart=cart)
 
-                    for item in cart_item:
-                        item.user = user
-                        item.save()
+                    for cart_item in cart_items:
+                        cart_item.user = user
+                        cart_item.save()
             except:
                 pass
             auth.login(request, user)
