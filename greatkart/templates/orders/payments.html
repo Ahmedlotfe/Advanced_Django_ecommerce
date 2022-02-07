@@ -141,6 +141,7 @@
     const csrftoken = getCookie('csrftoken');
     let orderID = "{{ order.order_number }}"
     let payment_method = 'PayPal'
+    let redirect_url = "{% url 'order_complete' %}"
 
     // Render the PayPal button into #paypal-button-container
     paypal.Buttons({
@@ -184,8 +185,10 @@
                             status: transaction.status
                         }),
                     })
-                    // .then(response => response.json())
-                    // .then(data => console.log(data));
+                    .then(response => response.json())
+                    .then(data => {
+                        window.location.href = redirect_url + '?order_number=' + data.order_number + '&payment_id=' + data.transID
+                    });
                 }
 
                 // Replace the above to show a success message within this page, e.g.

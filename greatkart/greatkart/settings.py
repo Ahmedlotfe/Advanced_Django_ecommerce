@@ -154,6 +154,6 @@ MESSAGE_TAGS = {
 # SMTP configuration
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = os.environ.get('EMAIL')
-EMAIL_HOST_PASSWORD = os.environ.get('PASS')
+EMAIL_HOST_USER = 'ahmedlotfy19995@gmail.com'
+EMAIL_HOST_PASSWORD = 'Ahmed1995'
 EMAIL_USE_TLS = True

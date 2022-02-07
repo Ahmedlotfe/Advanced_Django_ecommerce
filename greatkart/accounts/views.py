@@ -1,7 +1,6 @@
 from django.contrib import messages, auth
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
 
 # Verfication email
 from django.contrib.sites.shortcuts import get_current_site
