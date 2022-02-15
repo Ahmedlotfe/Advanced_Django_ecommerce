@@ -15,3 +15,8 @@ class VariationAdmin(admin.ModelAdmin):
                     'variation_value', 'is_active']
     list_editable = ['is_active']
     list_filter = ['product', 'variation_category', 'variation_value']
+
+
+@admin.register(models.ReviewRating)
+class ReviewRatingAdmin(admin.ModelAdmin):
+    pass
