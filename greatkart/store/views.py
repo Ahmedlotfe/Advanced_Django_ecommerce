@@ -49,12 +49,16 @@ def product_detail(request, category_slug, product_slug):
     except OrderProduct.DoesNotExist:
         orderproduct = None
 
+    # Get the reviews
+    reviews = ReviewRating.objects.filter(product=product, status=True)
+
     context = {
         'product': product,
         'in_cart': in_cart,
         'color_variation': color_variation,
         'size_variation': size_variation,
-        'orderproduct': orderproduct
+        'orderproduct': orderproduct,
+        'reviews': reviews,
     }
     return render(request, 'store/product_detail.html', context)
 
