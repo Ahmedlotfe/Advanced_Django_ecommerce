@@ -42,11 +42,13 @@ def product_detail(request, category_slug, product_slug):
         size_variation = product.variation_set.sizes()
     except Exception as e:
         raise e
-
-    try:
-        orderproduct = OrderProduct.objects.filter(
-            user=request.user, product=product).exists()
-    except OrderProduct.DoesNotExist:
+    if request.user.is_authenticated:
+        try:
+            orderproduct = OrderProduct.objects.filter(
+                user=request.user, product=product).exists()
+        except OrderProduct.DoesNotExist:
+            orderproduct = None
+    else:
         orderproduct = None
 
     # Get the reviews

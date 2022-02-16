@@ -39,9 +39,9 @@ input:checked ~ label, label:hover ~ label{
 /* Hover hightlight */
 input:checked + label:hover, input:checked ~ label:hover, input:checked ~ label:hover ~ label,
 label:hover ~ input:checked label{
-    color: #cc9000;
+    color: #ffb503;
 }
 
 .rating-star{
-    color: #cc9000 !important;
+    color: #ffb503 !important;
 }
