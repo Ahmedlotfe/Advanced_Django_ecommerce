@@ -15,7 +15,7 @@ from .models import Account, UserProfile
 from .forms import RegistrationForm, UserForm, UserProfileForm
 from carts.views import _cart_id
 from carts.models import Cart, CartItem
-from orders.models import Order
+from orders.models import Order, OrderProduct
 
 import requests
 
@@ -162,9 +162,11 @@ def dashboard(request):
     orders = Order.objects.filter(
         user=request.user, is_ordered=True).order_by('-created_at')
     orders_count = orders.count()
+    profile = UserProfile.objects.get(user=request.user)
     context = {
         'orders': orders,
-        'orders_count': orders_count
+        'orders_count': orders_count,
+        'profile': profile
     }
     return render(request, 'accounts/dashboard.html', context)
 
@@ -289,3 +291,17 @@ def change_password(request):
             messages.error(request, "Password does not match")
             return redirect('change_password')
     return render(request, 'accounts/change_password.html')
+
+
+@login_required(login_url='login')
+def order_detail(request, order_id):
+    order = Order.objects.get(order_number=order_id)
+    order_products = OrderProduct.objects.filter(order=order)
+    sub_total = order.order_total - order.tax
+
+    context = {
+        'order': order,
+        'order_products': order_products,
+        'sub_total': sub_total
+    }
+    return render(request, 'accounts/order_detail.html', context)
